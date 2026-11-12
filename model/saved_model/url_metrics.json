@@ -1,0 +1,138 @@
+{
+  "seed": 42,
+  "model_candidates": [
+    "RandomForestClassifier"
+  ],
+  "xgboost_used": false,
+  "xgboost_reason": "xgboost was not installed; RandomForestClassifier is the selected documented baseline.",
+  "split_sizes": {
+    "train": 148453,
+    "validation": 45028,
+    "test": 41889
+  },
+  "split_class_distributions": {
+    "train": {
+      "0": 81123,
+      "1": 67330
+    },
+    "validation": {
+      "0": 26781,
+      "1": 18247
+    },
+    "test": {
+      "0": 26946,
+      "1": 14943
+    }
+  },
+  "shared_registered_domains": {
+    "train_validation": 0,
+    "train_test": 0,
+    "validation_test": 0
+  },
+  "validation_metrics": {
+    "accuracy": 0.996225,
+    "precision_scam_or_phishing": 0.997852,
+    "recall_scam_or_phishing": 0.992821,
+    "f1_scam_or_phishing": 0.99533,
+    "pr_auc": 0.997863,
+    "confusion_matrix": [
+      [
+        26742,
+        39
+      ],
+      [
+        131,
+        18116
+      ]
+    ],
+    "classification_report": {
+      "legitimate": {
+        "precision": 0.9951252186209206,
+        "recall": 0.998543743698891,
+        "f1-score": 0.9968315503037984,
+        "support": 26781.0
+      },
+      "malicious": {
+        "precision": 0.9978518314513908,
+        "recall": 0.992820737655505,
+        "f1-score": 0.9953299269270919,
+        "support": 18247.0
+      },
+      "accuracy": 0.9962245713778094,
+      "macro avg": {
+        "precision": 0.9964885250361557,
+        "recall": 0.995682240677198,
+        "f1-score": 0.9960807386154451,
+        "support": 45028.0
+      },
+      "weighted avg": {
+        "precision": 0.9962301423198988,
+        "recall": 0.9962245713778094,
+        "f1-score": 0.9962230373395371,
+        "support": 45028.0
+      }
+    }
+  },
+  "test_metrics": {
+    "accuracy": 0.995751,
+    "precision_scam_or_phishing": 0.997842,
+    "recall_scam_or_phishing": 0.99023,
+    "f1_scam_or_phishing": 0.994021,
+    "pr_auc": 0.997221,
+    "confusion_matrix": [
+      [
+        26914,
+        32
+      ],
+      [
+        146,
+        14797
+      ]
+    ],
+    "classification_report": {
+      "legitimate": {
+        "precision": 0.9946045824094605,
+        "recall": 0.9988124396942032,
+        "f1-score": 0.9967040699181572,
+        "support": 26946.0
+      },
+      "malicious": {
+        "precision": 0.9978420662215928,
+        "recall": 0.9902295389145419,
+        "f1-score": 0.9940212279994626,
+        "support": 14943.0
+      },
+      "accuracy": 0.9957506744013942,
+      "macro avg": {
+        "precision": 0.9962233243155266,
+        "recall": 0.9945209893043725,
+        "f1-score": 0.9953626489588099,
+        "support": 41889.0
+      },
+      "weighted avg": {
+        "precision": 0.995759485142987,
+        "recall": 0.9957506744013942,
+        "f1-score": 0.9957470237535064,
+        "support": 41889.0
+      }
+    }
+  },
+  "feature_importance": {
+    "is_https": 0.396299,
+    "path_length": 0.295769,
+    "digit_count": 0.078023,
+    "digit_ratio": 0.067486,
+    "url_length": 0.048653,
+    "url_entropy": 0.036702,
+    "subdomain_count": 0.029469,
+    "domain_length": 0.016655,
+    "hyphen_count": 0.016516,
+    "dot_count": 0.012009,
+    "suspicious_keyword_count": 0.002007,
+    "query_param_count": 0.000213,
+    "has_at": 0.000145,
+    "underscore_count": 4.6e-05,
+    "has_punycode": 9e-06,
+    "has_ip_host": 0.0
+  }
+}
