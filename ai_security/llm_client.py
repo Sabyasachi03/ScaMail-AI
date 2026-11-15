@@ -21,9 +21,47 @@ import json
 import logging
 import os
 import time
+from pathlib import Path
 from typing import Any, Dict, Optional
 
 logger = logging.getLogger(__name__)
+
+
+def _try_load_env() -> None:
+    """Attempt to load environment variables from .env files if not already present."""
+    if "LLM_API_KEY" in os.environ and "LLM_PROVIDER" in os.environ:
+        return
+
+    try:
+        from dotenv import load_dotenv
+        for env_path in [
+            Path(__file__).resolve().parent / ".env",
+            Path(__file__).resolve().parents[1] / ".env",
+            Path.cwd() / ".env",
+            Path.cwd() / "ai_security" / ".env",
+        ]:
+            if env_path.is_file():
+                load_dotenv(dotenv_path=env_path)
+    except Exception:
+        pass
+
+    for candidate in [
+        Path(__file__).resolve().parent / ".env",
+        Path(__file__).resolve().parents[1] / ".env",
+    ]:
+        if candidate.is_file():
+            try:
+                with open(candidate, "r", encoding="utf-8") as f:
+                    for line in f:
+                        line = line.strip()
+                        if line and not line.startswith("#") and "=" in line:
+                            k, v = line.split("=", 1)
+                            k = k.strip()
+                            v = v.strip().strip("'\"")
+                            if k not in os.environ and v:
+                                os.environ[k] = v
+            except Exception:
+                pass
 
 
 # ---------------------------------------------------------------------------
@@ -63,6 +101,7 @@ def _make_cache_key(payload: Dict[str, Any]) -> str:
 
 def _get_config() -> Dict[str, Any]:
     """Read LLM config from environment variables."""
+    _try_load_env()
     provider = os.environ.get("LLM_PROVIDER", "openai").lower()
     api_key = os.environ.get("LLM_API_KEY", "")
     timeout = int(os.environ.get("LLM_TIMEOUT_SECONDS", "6"))

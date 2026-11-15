@@ -59,14 +59,14 @@ Designed specifically for contemporary cyber fraud (such as bank KYC scams, elec
 
 ---
 
-## 👥 Team Roles & Responsibilities
+## 👥 System Modules & Responsibilities
 
-| Member | Role | Directory | Key Deliverables |
+| Module | Role | Directory | Key Deliverables |
 |---|---|---|---|
-| **Sabyasachi** | Machine Learning Engineer | [`model/`](model/) | Text scam pipeline, URL phishing pipeline, dataset curation, offline feature extraction. |
-| **Aayush** | Backend & Integration Engineer | [`backend/`](backend/) | FastAPI server, Rule Engine, Detection Fusion, SQLite DB, end-to-end integration pipeline. |
-| **Devansh** | Frontend & UI Engineer | `frontend/` | Responsive React UI, verdict badges, risk gauge, highlighted keywords, history & analytics. |
-| **Aman** | AI & Application Security Engineer | `ai_security/` | PII redaction, prompt injection defense, bilingual LLM explanation generator with fallbacks. |
+| **Machine Learning** | ML & Statistical Classifiers | [`model/`](model/) | Text scam pipeline, URL phishing pipeline, dataset curation, offline feature extraction. |
+| **Backend & Integration** | Core API & Pipeline Orchestration | [`backend/`](backend/) | FastAPI server, Rule Engine, Detection Fusion, SQLite DB, end-to-end integration pipeline. |
+| **Frontend & UI** | Dashboard & User Experience | `frontend/` | Responsive React UI, verdict badges, risk gauge, highlighted keywords, history & analytics. |
+| **AI & Application Security** | Privacy, Guardrails & Explanations | `ai_security/` | PII redaction, prompt injection defense, bilingual LLM explanation generator with fallbacks. |
 
 ---
 
@@ -79,7 +79,7 @@ ScaMail-AI/
 ├── future-task.txt                     # Detailed implementation roadmap for each team member
 ├── project_overview_and_team_roles.txt # Project vision, grading criteria & viva prep
 │
-├── backend/                            # Aayush's Backend & Integration module
+├── backend/                            # Backend & Integration module
 │   ├── app/
 │   │   ├── main.py                     # FastAPI application & CORS setup
 │   │   ├── schemas.py                  # Pydantic request & response contracts
@@ -92,7 +92,7 @@ ScaMail-AI/
 │   ├── requirements.txt
 │   └── README.md
 │
-├── model/                              # Sabyasachi's Machine Learning module
+├── model/                              # Machine Learning module
 │   ├── data/                           # Datasets (UCI SMS, Mendeley Phishing, PhiUSIIL)
 │   ├── notebook/                       # Jupyter training & evaluation notebooks
 │   ├── saved_model/                    # Joblib fitted pipelines & evaluation metrics
@@ -100,8 +100,8 @@ ScaMail-AI/
 │   ├── requirements.txt
 │   └── README.md
 │
-├── frontend/                           # Devansh's React dashboard (in progress)
-└── ai_security/                        # Aman's PII redaction & LLM explainer (in progress)
+├── frontend/                           # React dashboard (completed)
+└── ai_security/                        # PII redaction & LLM explainer (completed)
 ```
 
 ---

@@ -33,6 +33,13 @@ async def check_health():
     except Exception as e:
         db_status = f"error: {str(e)}"
 
+    # Check LLM service status
+    try:
+        from ai_security import llm_status
+        llm_svc_status = llm_status()
+    except Exception:
+        llm_svc_status = "fallback_ready"
+
     return {
         "status": "healthy",
         "components": {
@@ -40,7 +47,7 @@ async def check_health():
             "text_model": text_status,
             "url_model": url_status,
             "database": db_status,
-            "llm_service": "fallback_ready",
+            "llm_service": llm_svc_status,
         },
         "version": "1.0.0",
     }

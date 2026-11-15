@@ -50,9 +50,15 @@ def get_db_connection(db_path: str = None):
     """Context manager for obtaining a thread-safe SQLite connection."""
     from .. import config
     target_path = db_path or config.DATABASE_PATH
+    Path(target_path).parent.mkdir(parents=True, exist_ok=True)
     conn = sqlite3.connect(target_path, timeout=10.0)
     conn.row_factory = sqlite3.Row
     try:
+        # Self-healing: ensure schema exists
+        cursor = conn.cursor()
+        cursor.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='scan_history'")
+        if not cursor.fetchone():
+            init_db(target_path)
         yield conn
     finally:
         conn.close()

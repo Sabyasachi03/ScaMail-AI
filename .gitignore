@@ -16,6 +16,7 @@ ENV/
 
 # Node / Frontend
 node_modules/
+.npm/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*

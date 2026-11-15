@@ -3,10 +3,12 @@
 Developed by Aayush (Backend & Integration Engineer).
 """
 
+from pathlib import Path
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
+from fastapi.staticfiles import StaticFiles
 
 from .config import HOST, PORT, DEBUG
 from .db.database import init_db
@@ -32,7 +34,7 @@ app = FastAPI(
     redoc_url="/redoc",
 )
 
-# Enable CORS for Devansh's React frontend (Vite port 5173, CRA port 3000, etc.)
+# Enable CORS for React frontend (Vite port 5173, etc.)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -41,27 +43,30 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Register routers
+# Register API routers first so /api takes priority
 app.include_router(scan_router)
 app.include_router(history_router)
 app.include_router(health_router)
 
-
-@app.get("/", tags=["System"])
-async def root():
-    """Welcome endpoint pointing to documentation."""
-    return {
-        "project": "ScaMail AI Backend",
-        "developer": "Aayush (Backend & Integration Engineer)",
-        "version": "1.0.0",
-        "documentation": "/docs",
-        "endpoints": {
-            "scan": "POST /api/scan",
-            "history": "GET /api/history",
-            "stats": "GET /api/stats",
-            "health": "GET /api/health",
-        },
-    }
+# Mount frontend production build if available, otherwise return welcome JSON
+FRONTEND_DIST = Path(__file__).resolve().parents[2] / "frontend" / "dist"
+if FRONTEND_DIST.exists() and (FRONTEND_DIST / "index.html").exists():
+    app.mount("/", StaticFiles(directory=str(FRONTEND_DIST), html=True), name="frontend")
+else:
+    @app.get("/", tags=["System"])
+    async def root():
+        """Welcome endpoint pointing to documentation."""
+        return {
+            "project": "ScaMail AI",
+            "version": "1.0.0",
+            "documentation": "/docs",
+            "endpoints": {
+                "scan": "POST /api/scan",
+                "history": "GET /api/history",
+                "stats": "GET /api/stats",
+                "health": "GET /api/health",
+            },
+        }
 
 
 if __name__ == "__main__":
